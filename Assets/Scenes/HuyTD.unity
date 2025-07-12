@@ -204,7 +204,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2138360139}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: Continue
+        m_MethodName: ShowSelectLevelWithFade
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -734,7 +734,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.000030518, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &240725398
@@ -1839,7 +1839,6 @@ GameObject:
   m_Component:
   - component: {fileID: 461938531}
   - component: {fileID: 461938530}
-  - component: {fileID: 461938532}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -1927,29 +1926,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
---- !u!114 &461938532
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 461938529}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Version: 3
-  m_UsePipelineSettings: 1
-  m_AdditionalLightsShadowResolutionTier: 2
-  m_LightLayerMask: 1
-  m_RenderingLayers: 1
-  m_CustomShadowLayers: 0
-  m_ShadowLayerMask: 1
-  m_ShadowRenderingLayers: 1
-  m_LightCookieSize: {x: 1, y: 1}
-  m_LightCookieOffset: {x: 0, y: 0}
-  m_SoftShadowQuality: 0
 --- !u!1 &474191756
 GameObject:
   m_ObjectHideFlags: 0
@@ -3014,15 +2990,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Trong Colorzzle, m\u1EE5c ti\xEAu c\u1EE7a b\u1EA1n l\xE0 k\u1EBFt h\u1EE3p
-    c\xE1c \xF4 m\xE0u sao cho c\xE2y c\u1ED1i v\xE0 hoa ph\xE1t tri\u1EC3n \u0111\xFAng
-    c\xE1ch. K\xE9o th\u1EA3 c\xE1c \xF4 m\xE0u \u0111\u1EC3 k\u1EBFt h\u1EE3p v\xE0
-    truy\u1EC1n m\xE0u \u0111\u1EBFn c\xE2y. Khi c\xE2y nh\u1EADn \u0111\xFAng m\xE0u,
-    ch\xFAng s\u1EBD ph\xE1t tri\u1EC3n. Ho\xE0n th\xE0nh m\xE0n ch\u01A1i khi t\u1EA5t
-    c\u1EA3 c\xE2y \u0111\u1EC1u n\u1EDF hoa! b\u1EA1n s\u1EBD v\u01B0\u1EE3t qua
-    m\xE0n \u0111\xF3. H\xE3y t\u1EADn d\u1EE5ng kh\u1EA3 n\u0103ng pha tr\u1ED9n
-    v\xE0 ph\u1EA3n chi\u1EBFu m\xE0u \u0111\u1EC3 gi\u1EA3i \u0111\u1ED1 hi\u1EC7u
-    qu\u1EA3 h\u01A1n!"
+  m_text: In Colorzzle, your goal is to combine colored tiles so that trees and flowers
+    grow properly. Drag and drop the colored tiles to combine them and transfer color
+    to the trees. When the trees receive the correct color, they will grow. Complete
+    the level when all the trees bloom! You will pass that level. Make use of the
+    ability to mix and reflect colors to solve puzzles more effectively!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6de8f7770c7c8e246b0a895562b1967e, type: 2}
   m_sharedMaterial: {fileID: -5652863779199272457, guid: 6de8f7770c7c8e246b0a895562b1967e, type: 2}
@@ -3943,6 +3915,7 @@ RectTransform:
   - {fileID: 1767178668}
   - {fileID: 1991577087}
   - {fileID: 1646720645}
+  - {fileID: 1435287462}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -4953,6 +4926,94 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hoverScale: 1.1
   scaleDuration: 0.2
+--- !u!1 &1435287461
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1435287462}
+  - component: {fileID: 1435287465}
+  - component: {fileID: 1435287464}
+  - component: {fileID: 1435287463}
+  m_Layer: 5
+  m_Name: FadePanelSelect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1435287462
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1435287461}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1.0059}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1016744059}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -1, y: 1}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!225 &1435287463
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1435287461}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
+--- !u!114 &1435287464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1435287461}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1435287465
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1435287461}
+  m_CullTransparentMesh: 1
 --- !u!1 &1625676423
 GameObject:
   m_ObjectHideFlags: 0

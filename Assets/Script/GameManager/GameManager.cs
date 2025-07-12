@@ -55,15 +55,43 @@ public class GameManager : MonoBehaviour
             bgmSource.Play();
         }
 
-        // Fade từ Panel đen trong canvasHome
+        // Tìm FadePanel (nếu có thì fade, không thì bỏ qua im lặng)
         GameObject fadePanel = GameObject.Find("FadePanel");
+        if (fadePanel == null) return;
+
+        CanvasGroup cg = fadePanel.GetComponent<CanvasGroup>();
+        if (cg == null)
+        {
+            cg = fadePanel.AddComponent<CanvasGroup>();
+        }
+
+        fadePanel.SetActive(true);
+        cg.alpha = 1f;
+        cg.blocksRaycasts = true;
+
+        cg.DOFade(0f, 1.5f).SetEase(Ease.OutQuad).OnComplete(() =>
+        {
+            cg.blocksRaycasts = false;
+            fadePanel.SetActive(false);
+        });
+    }
+
+
+    public void ShowSelectLevelWithFade()
+    {
+        // Ẩn các canvas khác
+        canvasHome.SetActive(false);
+        canvasHowToPlay.SetActive(false);
+        canvasSelectLevel.SetActive(true);
+
+        // Tìm đúng FadePanel nằm trong canvasSelectLevel
+        GameObject fadePanel = GameObject.Find("FadePanelSelect");
+
         if (fadePanel != null)
         {
             CanvasGroup cg = fadePanel.GetComponent<CanvasGroup>();
             if (cg == null)
-            {
                 cg = fadePanel.AddComponent<CanvasGroup>();
-            }
 
             fadePanel.SetActive(true);
             cg.alpha = 1f;
@@ -72,17 +100,17 @@ public class GameManager : MonoBehaviour
             cg.DOFade(0f, 1.5f).SetEase(Ease.OutQuad).OnComplete(() =>
             {
                 cg.blocksRaycasts = false;
-                fadePanel.SetActive(false); // Ẩn đi sau khi fade xong
+                fadePanel.SetActive(false); // Ẩn sau khi fade xong
             });
         }
         else
         {
-            Debug.LogWarning("⚠ Không tìm thấy FadePanel");
+            Debug.LogWarning("Không tìm thấy FadePanelSelect!");
         }
     }
 
 
-    public void Continue()
+    public void Continue() // nếu bạn vẫn muốn dùng cách này không có hiệu ứng
     {
         canvasHome.SetActive(false);
         canvasSelectLevel.SetActive(true);
