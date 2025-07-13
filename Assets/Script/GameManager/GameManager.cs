@@ -13,7 +13,10 @@ public class GameManager : MonoBehaviour
     }
     private void Update()
     {
-        CheckWinCondition();
+        if (GameObject.FindWithTag("BoxPoint") != null)
+        {
+            CheckWinCondition();
+        }
     }
 
     void CheckWinCondition()
