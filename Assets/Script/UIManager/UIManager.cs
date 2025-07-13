@@ -53,6 +53,7 @@ public class UIManager : MonoBehaviour
 
         ResetGameState();
         UnloadCurrentLevel();
+        PlayButtonClickSound();
 
         if (bgmClip != null && !bgmSource.isPlaying)
         {
