@@ -3,9 +3,9 @@ using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
 
-public class GameManager : MonoBehaviour
+public class UIManager : MonoBehaviour
 {
-    public static GameManager Instance;
+    public static UIManager Instance;
 
     [Header("Effect")]
     public AudioClip bgmClip;       // Nhạc nền
