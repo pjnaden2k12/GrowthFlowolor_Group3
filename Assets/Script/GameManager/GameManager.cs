@@ -4,6 +4,13 @@ using DG.Tweening;
 public class GameManager : MonoBehaviour
 {
     private bool gameWon = false;
+    public AudioClip winSound;  
+    private AudioSource audioSource;
+    void Start()
+    {
+        audioSource = gameObject.AddComponent<AudioSource>(); 
+        audioSource.playOnAwake = false;  
+    }
     private void Update()
     {
         CheckWinCondition();
@@ -48,7 +55,7 @@ public class GameManager : MonoBehaviour
         {
             gameWon = true;
             Debug.Log("Game Win!");
-            // Có thể thêm hành động win ở đây (hiện UI, dừng game, vv.)
+            PlayWinSound();
         }
     }
 
@@ -63,5 +70,16 @@ public class GameManager : MonoBehaviour
             }
         }
         return null;
+    }
+    void PlayWinSound()
+    {
+        if (winSound != null)
+        {
+            audioSource.PlayOneShot(winSound); 
+        }
+        else
+        {
+            Debug.LogWarning("Không có âm thanh chiến thắng!");
+        }
     }
 }

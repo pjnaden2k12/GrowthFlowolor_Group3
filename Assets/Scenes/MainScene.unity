@@ -555,6 +555,8 @@ MonoBehaviour:
   moveDuration: 0.5
   hoverHeight: 0.5
   hoverDuration: 0.2
+  clickSound: {fileID: 8300000, guid: 37ca0be2f4ea4e14185ecb58153b3108, type: 3}
+  swapSound: {fileID: 8300000, guid: f3027af86fcc35045b79a9177e025f92, type: 3}
 --- !u!4 &1714929181
 Transform:
   m_ObjectHideFlags: 0
@@ -582,6 +584,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe9218c4d7fcacf49a702b5adf8fdfc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  winSound: {fileID: 8300000, guid: 308c12fdf21e0084d8b4c86af580a373, type: 3}
 --- !u!1001 &100979254396614800
 PrefabInstance:
   m_ObjectHideFlags: 0
