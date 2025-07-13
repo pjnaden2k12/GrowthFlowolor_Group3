@@ -17,9 +17,15 @@ public class SwapBoxOnClick : MonoBehaviour
     public float hoverHeight = 0.5f;
     public float hoverDuration = 0.2f;
 
+    public AudioClip clickSound;  
+    public AudioClip swapSound;   
+    private AudioSource audioSource;
+
     void Start()
     {
         mainCamera = Camera.main;
+        audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.playOnAwake = false;
     }
 
     void Update()
@@ -47,6 +53,7 @@ public class SwapBoxOnClick : MonoBehaviour
                 firstBox = selectedBox;
                 firstBoxOriginalPosition = firstBox.transform.position;
                 HoverBox(firstBox, true);
+                PlayClickSound();
             }
             else
             {
@@ -78,6 +85,8 @@ public class SwapBoxOnClick : MonoBehaviour
 
         Vector3 pos1 = firstBox.transform.position;
         Vector3 pos2 = secondBox.transform.position;
+
+        PlaySwapSound();
 
         // Cùng di chuyển đổi chỗ
         Tween t1 = firstBox.transform.DOMove(pos2, moveDuration).SetEase(Ease.InOutQuad);
@@ -113,5 +122,28 @@ public class SwapBoxOnClick : MonoBehaviour
         targetPos.y += up ? hoverHeight : -hoverHeight;
 
         box.transform.DOMoveY(targetPos.y, hoverDuration).SetEase(Ease.OutSine);
+    }
+    void PlayClickSound()
+    {
+        if (clickSound != null)
+        {
+            audioSource.PlayOneShot(clickSound); 
+        }
+        else
+        {
+            Debug.LogWarning("Không có âm thanh cho việc nhấn chuột!");
+        }
+    }
+
+    void PlaySwapSound()
+    {
+        if (swapSound != null)
+        {
+            audioSource.PlayOneShot(swapSound);  
+        }
+        else
+        {
+            Debug.LogWarning("Không có âm thanh cho việc đổi vị trí của box!");
+        }
     }
 }
