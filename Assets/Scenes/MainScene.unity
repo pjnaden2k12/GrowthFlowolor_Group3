@@ -748,6 +748,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BoxPoint
       objectReference: {fileID: 0}
+    - target: {fileID: 8258817796449874038, guid: 527bb4f3401290d4caf799dc9d365a94, type: 3}
+      propertyPath: selectedTowerType
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

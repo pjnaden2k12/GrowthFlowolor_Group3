@@ -88,15 +88,16 @@ public class BoxPoint : MonoBehaviour
             newTowerType = TowerType.C;
         }
 
-        if (newTowerType != selectedTowerType)
+        if (newTowerType != selectedTowerType || currentTowerSpawn == null)
         {
             selectedTowerType = newTowerType;
-            Invoke("CreateTowerWithDelay", 0.3f);  // Tạo lại tower với loại mới
+            Invoke("CreateTowerWithDelay", 0.3f);  
         }
         else
         {
-            ResetTowerIfNoCollisions();  // Reset nếu không còn va chạm nào
+            ResetTowerIfNoCollisions();
         }
+
     }
 
     void ResetTowerIfNoCollisions()

@@ -3,6 +3,7 @@ using DG.Tweening;
 
 public class GameManager : MonoBehaviour
 {
+    private bool gameWon = false;
     private void Update()
     {
         CheckWinCondition();
@@ -10,6 +11,8 @@ public class GameManager : MonoBehaviour
 
     void CheckWinCondition()
     {
+        if (gameWon) return; // Đã thắng rồi thì không kiểm tra nữa
+
         bool allMatch = true;
 
         GameObject[] boxPoints = GameObject.FindGameObjectsWithTag("BoxPoint");
@@ -43,7 +46,9 @@ public class GameManager : MonoBehaviour
 
         if (allMatch)
         {
+            gameWon = true;
             Debug.Log("Game Win!");
+            // Có thể thêm hành động win ở đây (hiện UI, dừng game, vv.)
         }
     }
 
