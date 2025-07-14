@@ -86,4 +86,9 @@ public class GameManager : MonoBehaviour
             Debug.LogWarning("Không có âm thanh chiến thắng!");
         }
     }
+    public void ResetGame()
+    {
+        gameWon = false;
+    }
+
 }

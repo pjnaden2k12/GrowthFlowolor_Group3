@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 1105935033491638494}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -1, z: 4}
+  m_LocalPosition: {x: 0, y: -1, z: 1.4}
   m_LocalScale: {x: 0.99, y: 1, z: 0.99}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -147,7 +147,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8556982677398324684}
   m_Layer: 1
-  m_Name: Level01
+  m_Name: Level0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -304,7 +304,7 @@ Transform:
   m_GameObject: {fileID: 4818390610965149778}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -1, z: 2}
+  m_LocalPosition: {x: 0, y: -1, z: -0.6}
   m_LocalScale: {x: 0.99, y: 1, z: 0.99}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -442,7 +442,7 @@ Transform:
   m_GameObject: {fileID: 6265647895799364187}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -10.5, z: 6}
+  m_LocalPosition: {x: 0, y: -10.5, z: 3.4}
   m_LocalScale: {x: 0.99, y: 10, z: 0.99}
   m_ConstrainProportionsScale: 0
   m_Children:
