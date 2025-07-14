@@ -269,6 +269,7 @@ public class UIManager : MonoBehaviour
     {
         PlayerPrefs.DeleteAll();
         PlayerPrefs.Save();
+        LoadLevelUnlockStatus();
         Debug.Log("PlayerPrefs đã được reset");
     }
 }
