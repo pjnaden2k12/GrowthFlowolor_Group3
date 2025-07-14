@@ -59,6 +59,7 @@ public class GameManager : MonoBehaviour
             gameWon = true;
             Debug.Log("Game Win!");
             PlayWinSound();
+            UIManager.Instance.OnGameWin();
         }
     }
 

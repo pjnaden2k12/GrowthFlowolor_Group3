@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
@@ -24,6 +25,15 @@ public class UIManager : MonoBehaviour
     [Header("Level Prefabs")]
     public GameObject[] levelPrefabs;
 
+    [Header("Panel")]
+    public GameObject backHomePanel;
+    public GameObject winPanel;
+
+    [Header("Buttons")]
+    public Button buttonNextLevel;
+    public Button buttonRestartLevel;
+
+
     private GameObject currentLevel;
     private int currentLevelIndex = 0;
 
@@ -43,6 +53,7 @@ public class UIManager : MonoBehaviour
     void Start()
     {
         ShowHome();
+        HideWinButtons();
     }
 
     public void ShowHome()
@@ -50,8 +61,8 @@ public class UIManager : MonoBehaviour
         canvasHome.SetActive(true);
         canvasSelectLevel.SetActive(false);
         canvasHowToPlay.SetActive(false);
+        backHomePanel.SetActive(false);
 
-        ResetGameState();
         UnloadCurrentLevel();
         PlayButtonClickSound();
 
@@ -93,13 +104,28 @@ public class UIManager : MonoBehaviour
             Debug.LogWarning("Không có âm thanh cho Button Click!");
         }
     }
+    private void ShowWinButtons()
+    {
+        buttonNextLevel.gameObject.SetActive(true);  
+        buttonRestartLevel.gameObject.SetActive(true);  
+    }
+    public void OnGameWin()
+    {
+        ShowWinButtons();  
+        winPanel.gameObject.SetActive(true);
+    }
+    private void HideWinButtons()
+    {
+        buttonNextLevel.gameObject.SetActive(false);  
+        buttonRestartLevel.gameObject.SetActive(false);  
+    }
     public void ShowSelectLevelWithFade()
     {
         PlayButtonClickSound();
         canvasHome.SetActive(false);
         canvasHowToPlay.SetActive(false);
         canvasSelectLevel.SetActive(true);
-
+        backHomePanel.SetActive(false);
 
         if (fadePanelSelect != null)
         {
@@ -162,6 +188,8 @@ public class UIManager : MonoBehaviour
             canvasHome.SetActive(false);
             canvasSelectLevel.SetActive(false);
             canvasHowToPlay.SetActive(false);
+            backHomePanel.SetActive(true);
+            winPanel.SetActive(false);
 
             SetupLevelUIButtons();
 
@@ -202,8 +230,24 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    private void ResetGameState()
+    public void NextLevel()
     {
+        Debug.Log("Next Level!");
 
+        if (currentLevelIndex + 1 < levelPrefabs.Length)
+        {
+            currentLevelIndex++;
+            LoadLevel(currentLevelIndex);
+        }
+        else
+        {
+            Debug.Log("Đây là level cuối cùng!");
+        }
+    }
+    public void RestartLevel()
+    {
+        Debug.Log("Restart Level!");
+
+        LoadLevel(currentLevelIndex);
     }
 }

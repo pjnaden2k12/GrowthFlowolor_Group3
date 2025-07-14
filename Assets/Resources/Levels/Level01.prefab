@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3127151904725677967}
   - component: {fileID: 1340874505118438409}
   - component: {fileID: 7053187444306424603}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: BoxMove
   m_TagString: BoxMove
   m_Icon: {fileID: 0}
@@ -146,7 +146,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8556982677398324684}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: Level01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -183,7 +183,7 @@ GameObject:
   - component: {fileID: 9041078420087749718}
   - component: {fileID: 4158997157193042511}
   - component: {fileID: 3379930949113185117}
-  m_Layer: 3
+  m_Layer: 1
   m_Name: TowerA
   m_TagString: Tower
   m_Icon: {fileID: 0}
@@ -288,7 +288,7 @@ GameObject:
   - component: {fileID: 3874363823442331180}
   - component: {fileID: 3505555500393324325}
   - component: {fileID: 8490316394176041356}
-  m_Layer: 6
+  m_Layer: 1
   m_Name: BoxMoveA
   m_TagString: BoxMove
   m_Icon: {fileID: 0}
@@ -426,7 +426,7 @@ GameObject:
   - component: {fileID: 2125124605242597647}
   - component: {fileID: 5050231729591646094}
   - component: {fileID: 8493547349099981164}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: BoxPoint
   m_TagString: BoxPoint
   m_Icon: {fileID: 0}
@@ -554,7 +554,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5181266878981451561}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: PointWin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -585,7 +585,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6514883981104669782}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: PointSpawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -618,7 +618,7 @@ GameObject:
   - component: {fileID: 4779917383300438262}
   - component: {fileID: 2922502053339032813}
   - component: {fileID: 8287261991907183664}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: square_forest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
