@@ -32,6 +32,8 @@ public class UIManager : MonoBehaviour
     [Header("Buttons")]
     public Button buttonNextLevel;
     public Button buttonRestartLevel;
+    public Button[] levelButtons;
+    public TextMeshProUGUI[] levelButtonTexts;
 
 
     private GameObject currentLevel;
@@ -54,6 +56,7 @@ public class UIManager : MonoBehaviour
     {
         ShowHome();
         HideWinButtons();
+        LoadLevelUnlockStatus();
     }
 
     public void ShowHome()
@@ -113,6 +116,7 @@ public class UIManager : MonoBehaviour
     {
         ShowWinButtons();  
         winPanel.gameObject.SetActive(true);
+        UnlockNextLevel();
     }
     private void HideWinButtons()
     {
@@ -249,5 +253,31 @@ public class UIManager : MonoBehaviour
         Debug.Log("Restart Level!");
 
         LoadLevel(currentLevelIndex);
+    }
+    private void UnlockNextLevel()
+    {
+        if (currentLevelIndex + 1 < levelPrefabs.Length)
+        {
+            PlayerPrefs.SetInt("Level" + (currentLevelIndex + 1), 1);  
+            PlayerPrefs.Save();  
+        }
+    }
+
+    private void LoadLevelUnlockStatus()
+    {
+        for (int i = 0; i < levelButtons.Length; i++)
+        {
+            bool isLevelUnlocked = PlayerPrefs.GetInt("Level" + i, i == 0 ? 1 : 0) == 1;
+            levelButtons[i].interactable = isLevelUnlocked;
+
+            if (!isLevelUnlocked && levelButtonTexts != null && i < levelButtonTexts.Length)
+            {
+                levelButtonTexts[i].color = Color.red;
+            }
+            else if (levelButtonTexts != null && i < levelButtonTexts.Length)
+            {
+                levelButtonTexts[i].color = Color.blue;  
+            }
+        }
     }
 }
