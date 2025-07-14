@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class UIManager : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class UIManager : MonoBehaviour
     public AudioClip buttonClickSound;  
     private AudioSource audioSource;
 
+    [Range(0f, 1f)]
+    public float bgmVolume = 1f; 
     [Header("Effect")]
     public AudioClip bgmClip;       
     private AudioSource bgmSource;  
@@ -47,9 +50,18 @@ public class UIManager : MonoBehaviour
         bgmSource = gameObject.AddComponent<AudioSource>();
         bgmSource.playOnAwake = false;
         bgmSource.loop = true;
+        bgmSource.volume = bgmVolume;
 
         audioSource = gameObject.AddComponent<AudioSource>();
         audioSource.playOnAwake = false;
+    }
+    public void SetBGMVolume(float volume)
+    {
+        bgmVolume = Mathf.Clamp01(volume);
+        if (bgmSource != null)
+        {
+            bgmSource.volume = bgmVolume;
+        }
     }
 
     void Start()
@@ -115,10 +127,15 @@ public class UIManager : MonoBehaviour
     }
     public void OnGameWin()
     {
-        ShowWinButtons();  
-        winPanel.gameObject.SetActive(true);
-        UnlockNextLevel();
+        ShowWinButtons();
+        StartCoroutine(ShowWinPanelDelayed());
     }
+    private IEnumerator ShowWinPanelDelayed()
+    {
+        yield return new WaitForSeconds(0.7f); 
+        winPanel.gameObject.SetActive(true);
+    }
+
     private void HideWinButtons()
     {
         buttonNextLevel.gameObject.SetActive(false);  
@@ -189,6 +206,7 @@ public class UIManager : MonoBehaviour
         {
             currentLevelIndex = levelIndex;
             currentLevel = Instantiate(levelPrefabs[levelIndex]);
+            FindFirstObjectByType<GameManager>()?.ResetGame();
 
             canvasHome.SetActive(false);
             canvasSelectLevel.SetActive(false);
@@ -228,6 +246,7 @@ public class UIManager : MonoBehaviour
 
     private void UnloadCurrentLevel()
     {
+        DOTween.KillAll();
         if (currentLevel != null)
         {
             Destroy(currentLevel);

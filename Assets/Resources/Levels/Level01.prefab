@@ -162,7 +162,7 @@ Transform:
   m_GameObject: {fileID: 2217809684359325018}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.25, y: 3.6, z: 2.6}
+  m_LocalPosition: {x: -2.25, y: 3.6, z: -0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -288,7 +288,7 @@ GameObject:
   - component: {fileID: 3874363823442331180}
   - component: {fileID: 3505555500393324325}
   - component: {fileID: 8490316394176041356}
-  m_Layer: 1
+  m_Layer: 6
   m_Name: BoxMoveA
   m_TagString: BoxMove
   m_Icon: {fileID: 0}
