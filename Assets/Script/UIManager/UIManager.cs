@@ -57,6 +57,7 @@ public class UIManager : MonoBehaviour
         ShowHome();
         HideWinButtons();
         LoadLevelUnlockStatus();
+        
     }
 
     public void ShowHome()
@@ -258,8 +259,10 @@ public class UIManager : MonoBehaviour
     {
         if (currentLevelIndex + 1 < levelPrefabs.Length)
         {
-            PlayerPrefs.SetInt("Level" + (currentLevelIndex + 1), 1);  
+            int nextLevelIndex = currentLevelIndex + 1;
+            PlayerPrefs.SetInt("Level" + nextLevelIndex, 1);  
             PlayerPrefs.Save();  
+            Debug.Log("Mở khóa level " + nextLevelIndex);
         }
     }
 
@@ -279,5 +282,11 @@ public class UIManager : MonoBehaviour
                 levelButtonTexts[i].color = Color.blue;  
             }
         }
+    }
+    public void ResetPlayerPrefs()
+    {
+        PlayerPrefs.DeleteAll();  
+        PlayerPrefs.Save();       
+        Debug.Log("PlayerPrefs đã được reset");
     }
 }
