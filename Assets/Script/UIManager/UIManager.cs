@@ -239,8 +239,11 @@ public class UIManager : MonoBehaviour
             PlayerPrefs.SetInt("Level" + nextIndex, 1);
             PlayerPrefs.Save();
             Debug.Log("Mở khóa level " + nextIndex);
+            LoadLevelUnlockStatus();
         }
+
     }
+
 
     private void LoadLevelUnlockStatus()
     {
@@ -258,7 +261,8 @@ public class UIManager : MonoBehaviour
     {
         for (int i = 0; i < levelButtons.Length; i++)
         {
-            int levelIndex = i + 1; // Vì button 0 sẽ gọi LoadLevel(1)
+            int levelIndex = i;
+
             levelButtons[i].onClick.RemoveAllListeners();
             levelButtons[i].onClick.AddListener(() => LoadLevel(levelIndex));
         }
@@ -268,8 +272,16 @@ public class UIManager : MonoBehaviour
     public void ResetPlayerPrefs()
     {
         PlayerPrefs.DeleteAll();
+
+        
+        PlayerPrefs.SetInt("Level0", 1);
+
         PlayerPrefs.Save();
+
+        
         LoadLevelUnlockStatus();
+
         Debug.Log("PlayerPrefs đã được reset");
     }
+
 }
