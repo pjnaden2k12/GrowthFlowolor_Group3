@@ -3,7 +3,6 @@ using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
 using UnityEngine.SceneManagement;
-using System.Collections;
 
 public class UIManager : MonoBehaviour
 {
@@ -12,9 +11,6 @@ public class UIManager : MonoBehaviour
     [Header("Audio")]
     public AudioClip buttonClickSound;  
     private AudioSource audioSource;
-
-    [Range(0f, 1f)]
-    public float bgmVolume = 1f;
 
     [Header("Effect")]
     public AudioClip bgmClip;       
@@ -36,6 +32,8 @@ public class UIManager : MonoBehaviour
     [Header("Buttons")]
     public Button buttonNextLevel;
     public Button buttonRestartLevel;
+    public Button[] levelButtons;
+    public TextMeshProUGUI[] levelButtonTexts;
 
 
     private GameObject currentLevel;
@@ -45,30 +43,20 @@ public class UIManager : MonoBehaviour
     {
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
+
         bgmSource = gameObject.AddComponent<AudioSource>();
         bgmSource.playOnAwake = false;
         bgmSource.loop = true;
-        bgmSource.volume = bgmVolume;
-
 
         audioSource = gameObject.AddComponent<AudioSource>();
         audioSource.playOnAwake = false;
-       
-
     }
 
     void Start()
     {
         ShowHome();
         HideWinButtons();
-    }
-    public void SetBGMVolume(float volume)
-    {
-        bgmVolume = Mathf.Clamp01(volume);
-        if (bgmSource != null)
-        {
-            bgmSource.volume = bgmVolume;
-        }
+        LoadLevelUnlockStatus();
     }
 
     public void ShowHome()
@@ -126,15 +114,10 @@ public class UIManager : MonoBehaviour
     }
     public void OnGameWin()
     {
-        ShowWinButtons();
-        StartCoroutine(ShowWinPanelDelayed());
-    }
-    private IEnumerator ShowWinPanelDelayed()
-    {
-        yield return new WaitForSeconds(1f); 
+        ShowWinButtons();  
         winPanel.gameObject.SetActive(true);
+        UnlockNextLevel();
     }
-
     private void HideWinButtons()
     {
         buttonNextLevel.gameObject.SetActive(false);  
@@ -205,8 +188,6 @@ public class UIManager : MonoBehaviour
         {
             currentLevelIndex = levelIndex;
             currentLevel = Instantiate(levelPrefabs[levelIndex]);
-            FindFirstObjectByType<GameManager>()?.ResetGame();
-
 
             canvasHome.SetActive(false);
             canvasSelectLevel.SetActive(false);
@@ -246,7 +227,6 @@ public class UIManager : MonoBehaviour
 
     private void UnloadCurrentLevel()
     {
-        DOTween.KillAll();
         if (currentLevel != null)
         {
             Destroy(currentLevel);
@@ -274,5 +254,30 @@ public class UIManager : MonoBehaviour
 
         LoadLevel(currentLevelIndex);
     }
+    private void UnlockNextLevel()
+    {
+        if (currentLevelIndex + 1 < levelPrefabs.Length)
+        {
+            PlayerPrefs.SetInt("Level" + (currentLevelIndex + 1), 1);  
+            PlayerPrefs.Save();  
+        }
+    }
 
+    private void LoadLevelUnlockStatus()
+    {
+        for (int i = 0; i < levelButtons.Length; i++)
+        {
+            bool isLevelUnlocked = PlayerPrefs.GetInt("Level" + i, i == 0 ? 1 : 0) == 1;
+            levelButtons[i].interactable = isLevelUnlocked;
+
+            if (!isLevelUnlocked && levelButtonTexts != null && i < levelButtonTexts.Length)
+            {
+                levelButtonTexts[i].color = Color.red;
+            }
+            else if (levelButtonTexts != null && i < levelButtonTexts.Length)
+            {
+                levelButtonTexts[i].color = Color.blue;  
+            }
+        }
+    }
 }

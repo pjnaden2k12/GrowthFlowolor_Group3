@@ -427,7 +427,7 @@ GameObject:
   - component: {fileID: 66882089}
   - component: {fileID: 66882088}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: 6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -963,7 +963,7 @@ GameObject:
   - component: {fileID: 229369715}
   - component: {fileID: 229369714}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2170,7 +2170,7 @@ GameObject:
   - component: {fileID: 377458504}
   - component: {fileID: 377458503}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: 8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2381,7 +2381,7 @@ GameObject:
   - component: {fileID: 440905211}
   - component: {fileID: 440905210}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: 7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3520,7 +3520,7 @@ GameObject:
   - component: {fileID: 830020029}
   - component: {fileID: 830020028}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: 15
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4225,7 +4225,7 @@ GameObject:
   - component: {fileID: 1131597845}
   - component: {fileID: 1131597844}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: 11
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4826,7 +4826,7 @@ GameObject:
   - component: {fileID: 1299741150}
   - component: {fileID: 1299741149}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5782,7 +5782,7 @@ GameObject:
   - component: {fileID: 1583793461}
   - component: {fileID: 1583793460}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5918,7 +5918,7 @@ GameObject:
   - component: {fileID: 1636320418}
   - component: {fileID: 1636320417}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: 9
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6489,7 +6489,7 @@ GameObject:
   - component: {fileID: 1769793891}
   - component: {fileID: 1769793890}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: 12
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6747,7 +6747,7 @@ GameObject:
   - component: {fileID: 1876403571}
   - component: {fileID: 1876403570}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6883,7 +6883,7 @@ GameObject:
   - component: {fileID: 1898253606}
   - component: {fileID: 1898253605}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: 13
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7021,7 +7021,7 @@ GameObject:
   - component: {fileID: 1912102882}
   - component: {fileID: 1912102881}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: 5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7157,7 +7157,7 @@ GameObject:
   - component: {fileID: 1932798498}
   - component: {fileID: 1932798497}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: 14
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7837,7 +7837,7 @@ GameObject:
   - component: {fileID: 2106917250}
   - component: {fileID: 2106917249}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: 10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8017,6 +8017,38 @@ MonoBehaviour:
   winPanel: {fileID: 1243379560}
   buttonNextLevel: {fileID: 954037552}
   buttonRestartLevel: {fileID: 1752728672}
+  levelButtons:
+  - {fileID: 2084740914}
+  - {fileID: 1694337307}
+  - {fileID: 59988979}
+  - {fileID: 1386878808}
+  - {fileID: 645880153}
+  - {fileID: 188839435}
+  - {fileID: 51521950}
+  - {fileID: 342696547}
+  - {fileID: 1029772308}
+  - {fileID: 137704365}
+  - {fileID: 1363048217}
+  - {fileID: 343914512}
+  - {fileID: 1154571917}
+  - {fileID: 1388179379}
+  - {fileID: 1309882497}
+  levelButtonTexts:
+  - {fileID: 1583793460}
+  - {fileID: 229369714}
+  - {fileID: 1299741149}
+  - {fileID: 1876403570}
+  - {fileID: 1912102881}
+  - {fileID: 66882088}
+  - {fileID: 440905210}
+  - {fileID: 377458503}
+  - {fileID: 1636320417}
+  - {fileID: 2106917249}
+  - {fileID: 1131597844}
+  - {fileID: 1769793890}
+  - {fileID: 1898253605}
+  - {fileID: 1932798497}
+  - {fileID: 830020028}
 --- !u!4 &2144194005
 Transform:
   m_ObjectHideFlags: 0
