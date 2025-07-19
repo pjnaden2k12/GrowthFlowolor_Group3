@@ -74,16 +74,16 @@ public class UIManager : MonoBehaviour
         if (timerText != null) timerText.gameObject.SetActive(true);
         if (movesText != null) movesText.gameObject.SetActive(true);
     }
-    private void AnimatePanelIn(GameObject panel)
+    public void AnimatePanelIn(GameObject panel)
     {
         if (panel == null) return;
-        CanvasGroup cg = panel.GetComponent<CanvasGroup>() ?? panel.AddComponent<CanvasGroup>();
+        panel.transform.DOKill(true);
 
-        panel.transform.localScale = new Vector3(0.7f, 0.7f, 0.7f); 
+        CanvasGroup cg = panel.GetComponent<CanvasGroup>() ?? panel.AddComponent<CanvasGroup>();
+        panel.transform.localScale = new Vector3(0.7f, 0.7f, 0.7f);
         cg.alpha = 0f;
 
         panel.SetActive(true);
-
         panel.transform.DOScale(1f, 0.6f).SetEase(Ease.OutBack);
         cg.DOFade(1f, 0.5f);
     }
@@ -151,7 +151,7 @@ public class UIManager : MonoBehaviour
     private IEnumerator ShowWinPanelDelayed()
     {
         yield return new WaitForSeconds(0.7f);
-        winPanel.SetActive(true);
+        AnimatePanelIn(winPanel);
     }
 
     private void HideWinButtons()

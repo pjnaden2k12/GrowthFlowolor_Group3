@@ -93,7 +93,7 @@ public class LevelConditionsManager : MonoBehaviour
 
         if (losePanel != null)
         {
-            losePanel.SetActive(true);
+            UIManager.Instance.AnimatePanelIn(losePanel);
         }
     }
 

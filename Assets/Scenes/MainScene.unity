@@ -2782,9 +2782,6 @@ MonoBehaviour:
   canvasSelectLevel: {fileID: 1877144821}
   canvasHowToPlay: {fileID: 1771948953}
   fadePanelSelect: {fileID: 1108673542}
-  timerText: {fileID: 337736173}
-  movesText: {fileID: 226845444}
-  losePanel: {fileID: 796733607}
   levelPrefabs:
   - {fileID: 2217809684359325018, guid: 6b4da9783d407d742934d3f0d614ec1e, type: 3}
   - {fileID: 605473114942733932, guid: 7ce585bd47042764996cb3c3594b3fed, type: 3}
@@ -2803,6 +2800,9 @@ MonoBehaviour:
   - {fileID: 6513188149865031657, guid: bd028456ff720384dbfbefdcc8d4d297, type: 3}
   backHomePanel: {fileID: 1324153778}
   winPanel: {fileID: 1076477038}
+  timerText: {fileID: 337736173}
+  movesText: {fileID: 226845444}
+  losePanel: {fileID: 796733607}
   buttonNextLevel: {fileID: 690355077}
   buttonRestartLevel: {fileID: 440810666}
   levelButtons:
@@ -5911,6 +5911,7 @@ GameObject:
   - component: {fileID: 796733608}
   - component: {fileID: 796733610}
   - component: {fileID: 796733609}
+  - component: {fileID: 796733611}
   m_Layer: 0
   m_Name: LosePanel
   m_TagString: Untagged
@@ -5979,6 +5980,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 796733607}
   m_CullTransparentMesh: 1
+--- !u!225 &796733611
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 796733607}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &803134164
 GameObject:
   m_ObjectHideFlags: 0
@@ -8148,6 +8161,7 @@ GameObject:
   - component: {fileID: 1076477039}
   - component: {fileID: 1076477041}
   - component: {fileID: 1076477040}
+  - component: {fileID: 1076477042}
   m_Layer: 0
   m_Name: win
   m_TagString: Untagged
@@ -8217,6 +8231,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1076477038}
   m_CullTransparentMesh: 1
+--- !u!225 &1076477042
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1076477038}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1080693328
 GameObject:
   m_ObjectHideFlags: 0
