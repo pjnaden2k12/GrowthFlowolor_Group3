@@ -36,6 +36,9 @@ public class UIManager : MonoBehaviour
     public Button[] levelButtons;
     public TextMeshProUGUI[] levelButtonTexts;
 
+    [Header("Shop")]
+    public GameObject shopPanel;
+
     private GameObject currentLevel;
     private int currentLevelIndex = 0;
 
@@ -58,7 +61,10 @@ public class UIManager : MonoBehaviour
         ShowHome();
         HideWinButtons();
         LoadLevelUnlockStatus();
-        SetupLevelButtons(); // Gán đúng index cho từng button
+        SetupLevelButtons();
+
+        if (shopPanel != null)
+            shopPanel.SetActive(false);
     }
 
     public void SetBGMVolume(float volume)
@@ -73,6 +79,7 @@ public class UIManager : MonoBehaviour
         canvasSelectLevel.SetActive(false);
         canvasHowToPlay.SetActive(false);
         backHomePanel.SetActive(false);
+        shopPanel?.SetActive(false);
 
         UnloadCurrentLevel();
         PlayButtonClickSound();
@@ -112,7 +119,7 @@ public class UIManager : MonoBehaviour
     public void OnGameWin()
     {
         ShowWinButtons();
-        UnlockNextLevel(); // ✅ Gọi đúng ở đây
+        UnlockNextLevel();
         StartCoroutine(ShowWinPanelDelayed());
     }
 
@@ -135,6 +142,7 @@ public class UIManager : MonoBehaviour
         canvasHowToPlay.SetActive(false);
         canvasSelectLevel.SetActive(true);
         backHomePanel.SetActive(false);
+        shopPanel?.SetActive(false);
 
         if (fadePanelSelect)
         {
@@ -177,6 +185,7 @@ public class UIManager : MonoBehaviour
             canvasHome.SetActive(false);
             canvasSelectLevel.SetActive(false);
             canvasHowToPlay.SetActive(false);
+            shopPanel?.SetActive(false);
             backHomePanel.SetActive(true);
             winPanel.SetActive(false);
 
@@ -206,8 +215,14 @@ public class UIManager : MonoBehaviour
                 btn.onClick.RemoveAllListeners();
                 btn.onClick.AddListener(() => LoadLevel(currentLevelIndex));
             }
+            else if (btn.CompareTag("ShopButton"))
+            {
+                btn.onClick.RemoveAllListeners();
+                btn.onClick.AddListener(ShowShop);
+            }
         }
     }
+
 
     private void UnloadCurrentLevel()
     {
@@ -241,9 +256,7 @@ public class UIManager : MonoBehaviour
             Debug.Log("Mở khóa level " + nextIndex);
             LoadLevelUnlockStatus();
         }
-
     }
-
 
     private void LoadLevelUnlockStatus()
     {
@@ -268,20 +281,34 @@ public class UIManager : MonoBehaviour
         }
     }
 
-
     public void ResetPlayerPrefs()
     {
         PlayerPrefs.DeleteAll();
-
-        
         PlayerPrefs.SetInt("Level0", 1);
-
         PlayerPrefs.Save();
-
-        
         LoadLevelUnlockStatus();
-
         Debug.Log("PlayerPrefs đã được reset");
     }
 
+    // ===== SHOP FUNCTIONS =====
+    public void ShowShop()
+    {
+        PlayButtonClickSound();
+
+        if (shopPanel != null)
+        {
+            shopPanel.SetActive(true);
+            canvasHome.SetActive(false);
+            canvasHowToPlay.SetActive(false);
+            canvasSelectLevel.SetActive(false);
+            backHomePanel.SetActive(true);
+        }
+    }
+
+    public void BackToHomeFromShop()
+    {
+        PlayButtonClickSound();
+        shopPanel.SetActive(false);
+        ShowHome();
+    }
 }
