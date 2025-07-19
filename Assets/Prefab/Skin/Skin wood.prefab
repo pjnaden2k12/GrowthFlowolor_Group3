@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5236469102779772378}
   m_Layer: 0
   m_Name: Skin wood
-  m_TagString: Untagged
+  m_TagString: BoxMove
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

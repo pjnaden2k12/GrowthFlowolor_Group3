@@ -52,7 +52,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3379497186772403025}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -157,7 +157,6 @@ MonoBehaviour:
   - {fileID: 3295195144125117455, guid: c7c6e610621db014880c846f1819ab9f, type: 3}
   - {fileID: 3254443936623274726, guid: fa880225d816bae4dbdf428f7798c83c, type: 3}
   - {fileID: 9152972730685889986, guid: e6e995c081d4b3844b4e497e73d1dddc, type: 3}
-  originalModel: {fileID: 3379497186772403025}
 --- !u!1001 &5198399561935887282
 PrefabInstance:
   m_ObjectHideFlags: 0
