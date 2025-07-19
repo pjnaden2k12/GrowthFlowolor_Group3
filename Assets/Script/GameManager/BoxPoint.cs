@@ -138,7 +138,7 @@ public class BoxPoint : MonoBehaviour
         currentTowerSpawn.transform.localRotation = Quaternion.identity;
         currentTowerSpawn.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
 
-        currentTowerSpawn.transform.DOScale(new Vector3(1f, 2f, 1f), 0.3f).SetEase(Ease.OutBack);
+        currentTowerSpawn.transform.DOScale(new Vector3(1f, 1f, 1f), 0.3f).SetEase(Ease.OutBack);
     }
 
     void SpawnTowerAtWinPoint(TowerType type)
@@ -154,7 +154,7 @@ public class BoxPoint : MonoBehaviour
         currentTowerWin.transform.localScale = Vector3.zero;
 
         Sequence seq = DOTween.Sequence();
-        seq.Append(currentTowerWin.transform.DOScale(new Vector3(0.5f, 1f, 0.5f), 0.3f).SetEase(Ease.OutBack));
+        seq.Append(currentTowerWin.transform.DOScale(new Vector3(0.5f, 0.6f, 0.5f), 0.3f).SetEase(Ease.OutBack));
         seq.AppendCallback(() =>
         {
             currentTowerWin.transform.DOLocalRotate(new Vector3(0, 360, 0), 5f, RotateMode.FastBeyond360)
