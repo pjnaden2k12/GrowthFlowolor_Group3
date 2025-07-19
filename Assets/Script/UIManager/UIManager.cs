@@ -22,6 +22,8 @@ public class UIManager : MonoBehaviour
     public GameObject canvasSelectLevel;
     public GameObject canvasHowToPlay;
     public GameObject fadePanelSelect;
+    public GameObject canvasIngame;
+
 
     [Header("Level Prefabs")]
     public GameObject[] levelPrefabs;
@@ -100,6 +102,7 @@ public class UIManager : MonoBehaviour
         canvasHowToPlay.SetActive(false);
         backHomePanel.SetActive(false);
         shopPanel?.SetActive(false);
+        if (canvasIngame != null) canvasIngame.SetActive(false);
 
         UnloadCurrentLevel();
         PlayButtonClickSound();
@@ -213,6 +216,7 @@ public class UIManager : MonoBehaviour
             shopPanel?.SetActive(false);
             backHomePanel.SetActive(true);
             winPanel.SetActive(false);
+            if (canvasIngame != null) canvasIngame.SetActive(true);
 
             ShowInGameHUD();
             SetupLevelUIButtons();
