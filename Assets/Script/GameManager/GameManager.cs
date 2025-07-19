@@ -3,7 +3,7 @@ using DG.Tweening;
 
 public class GameManager : MonoBehaviour
 {
-    private bool gameWon = false;
+    public bool gameWon = false;
     public AudioClip winSound;  
     private AudioSource audioSource;
     void Start()
@@ -58,6 +58,7 @@ public class GameManager : MonoBehaviour
         {
             gameWon = true;
             Debug.Log("Game Win!");
+            FindFirstObjectByType<LevelConditionsManager>()?.StopConditionsCheck();
             PlayWinSound();
             UIManager.Instance.OnGameWin();
         }

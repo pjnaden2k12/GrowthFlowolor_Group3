@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
 using DG.Tweening;
+using System;
 
 public class SwapBoxOnClick : MonoBehaviour
 {
+    public static event Action OnBoxSwapped;
     private GameObject firstBox = null;
     private GameObject secondBox = null;
     private Camera mainCamera;
@@ -101,6 +103,7 @@ public class SwapBoxOnClick : MonoBehaviour
         firstBox = null;
         secondBox = null;
 
+        OnBoxSwapped?.Invoke();
         // Cho phép chọn lại khi di chuyển xong
         isMoving = false;
     }

@@ -29,6 +29,9 @@ public class UIManager : MonoBehaviour
     [Header("Panel")]
     public GameObject backHomePanel;
     public GameObject winPanel;
+    public TextMeshProUGUI timerText;
+    public TextMeshProUGUI movesText;
+    public GameObject losePanel;
 
     [Header("Buttons")]
     public Button buttonNextLevel;
@@ -66,7 +69,24 @@ public class UIManager : MonoBehaviour
         if (shopPanel != null)
             shopPanel.SetActive(false);
     }
+    public void ShowInGameHUD()
+    {
+        if (timerText != null) timerText.gameObject.SetActive(true);
+        if (movesText != null) movesText.gameObject.SetActive(true);
+    }
+    private void AnimatePanelIn(GameObject panel)
+    {
+        if (panel == null) return;
+        CanvasGroup cg = panel.GetComponent<CanvasGroup>() ?? panel.AddComponent<CanvasGroup>();
 
+        panel.transform.localScale = new Vector3(0.7f, 0.7f, 0.7f); 
+        cg.alpha = 0f;
+
+        panel.SetActive(true);
+
+        panel.transform.DOScale(1f, 0.6f).SetEase(Ease.OutBack);
+        cg.DOFade(1f, 0.5f);
+    }
     public void SetBGMVolume(float volume)
     {
         bgmVolume = Mathf.Clamp01(volume);
@@ -118,11 +138,16 @@ public class UIManager : MonoBehaviour
 
     public void OnGameWin()
     {
+        HideInGameHUD();
         ShowWinButtons();
         UnlockNextLevel();
         StartCoroutine(ShowWinPanelDelayed());
     }
-
+    public void HideInGameHUD()
+    {
+        if (timerText != null) timerText.gameObject.SetActive(false);
+        if (movesText != null) movesText.gameObject.SetActive(false);
+    }
     private IEnumerator ShowWinPanelDelayed()
     {
         yield return new WaitForSeconds(0.7f);
@@ -140,7 +165,7 @@ public class UIManager : MonoBehaviour
         PlayButtonClickSound();
         canvasHome.SetActive(false);
         canvasHowToPlay.SetActive(false);
-        canvasSelectLevel.SetActive(true);
+        AnimatePanelIn(canvasSelectLevel);
         backHomePanel.SetActive(false);
         shopPanel?.SetActive(false);
 
@@ -163,7 +188,7 @@ public class UIManager : MonoBehaviour
     public void ShowHowToPlay()
     {
         canvasHome.SetActive(false);
-        canvasHowToPlay.SetActive(true);
+        AnimatePanelIn(canvasHowToPlay);
         PlayButtonClickSound();
     }
 
@@ -189,6 +214,7 @@ public class UIManager : MonoBehaviour
             backHomePanel.SetActive(true);
             winPanel.SetActive(false);
 
+            ShowInGameHUD();
             SetupLevelUIButtons();
             Debug.Log("Đã load level " + levelIndex);
         }
@@ -297,7 +323,7 @@ public class UIManager : MonoBehaviour
 
         if (shopPanel != null)
         {
-            shopPanel.SetActive(true);
+            AnimatePanelIn(shopPanel);
             canvasHome.SetActive(false);
             canvasHowToPlay.SetActive(false);
             canvasSelectLevel.SetActive(false);
