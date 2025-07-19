@@ -13,7 +13,10 @@ public class GameManager : MonoBehaviour
     }
     private void Update()
     {
-        CheckWinCondition();
+        if (GameObject.FindWithTag("BoxPoint") != null)
+        {
+            CheckWinCondition();
+        }
     }
 
     void CheckWinCondition()
@@ -56,6 +59,7 @@ public class GameManager : MonoBehaviour
             gameWon = true;
             Debug.Log("Game Win!");
             PlayWinSound();
+            UIManager.Instance.OnGameWin();
         }
     }
 
@@ -82,4 +86,9 @@ public class GameManager : MonoBehaviour
             Debug.LogWarning("Không có âm thanh chiến thắng!");
         }
     }
+    public void ResetGame()
+    {
+        gameWon = false;
+    }
+
 }

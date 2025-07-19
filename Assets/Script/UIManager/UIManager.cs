@@ -2,27 +2,39 @@
 using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
+using System.Collections;
 
 public class UIManager : MonoBehaviour
 {
     public static UIManager Instance;
 
     [Header("Audio")]
-    public AudioClip buttonClickSound;  
+    public AudioClip buttonClickSound;
     private AudioSource audioSource;
 
+    [Range(0f, 1f)] public float bgmVolume = 1f;
     [Header("Effect")]
-    public AudioClip bgmClip;       
-    private AudioSource bgmSource;  
+    public AudioClip bgmClip;
+    private AudioSource bgmSource;
 
     [Header("Canvas")]
-    public GameObject canvasHome;         
-    public GameObject canvasSelectLevel;   
+    public GameObject canvasHome;
+    public GameObject canvasSelectLevel;
     public GameObject canvasHowToPlay;
     public GameObject fadePanelSelect;
 
     [Header("Level Prefabs")]
     public GameObject[] levelPrefabs;
+
+    [Header("Panel")]
+    public GameObject backHomePanel;
+    public GameObject winPanel;
+
+    [Header("Buttons")]
+    public Button buttonNextLevel;
+    public Button buttonRestartLevel;
+    public Button[] levelButtons;
+    public TextMeshProUGUI[] levelButtonTexts;
 
     private GameObject currentLevel;
     private int currentLevelIndex = 0;
@@ -35,6 +47,7 @@ public class UIManager : MonoBehaviour
         bgmSource = gameObject.AddComponent<AudioSource>();
         bgmSource.playOnAwake = false;
         bgmSource.loop = true;
+        bgmSource.volume = bgmVolume;
 
         audioSource = gameObject.AddComponent<AudioSource>();
         audioSource.playOnAwake = false;
@@ -43,6 +56,15 @@ public class UIManager : MonoBehaviour
     void Start()
     {
         ShowHome();
+        HideWinButtons();
+        LoadLevelUnlockStatus();
+        SetupLevelButtons(); // Gán đúng index cho từng button
+    }
+
+    public void SetBGMVolume(float volume)
+    {
+        bgmVolume = Mathf.Clamp01(volume);
+        bgmSource.volume = bgmVolume;
     }
 
     public void ShowHome()
@@ -50,85 +72,85 @@ public class UIManager : MonoBehaviour
         canvasHome.SetActive(true);
         canvasSelectLevel.SetActive(false);
         canvasHowToPlay.SetActive(false);
+        backHomePanel.SetActive(false);
 
-        ResetGameState();
         UnloadCurrentLevel();
         PlayButtonClickSound();
 
         if (bgmClip != null && !bgmSource.isPlaying)
         {
             bgmSource.clip = bgmClip;
-            bgmSource.loop = true;
             bgmSource.Play();
         }
 
         GameObject fadePanel = GameObject.Find("FadePanel");
-        if (fadePanel == null) return;
-
-        CanvasGroup cg = fadePanel.GetComponent<CanvasGroup>();
-        if (cg == null)
+        if (fadePanel)
         {
-            cg = fadePanel.AddComponent<CanvasGroup>();
+            CanvasGroup cg = fadePanel.GetComponent<CanvasGroup>() ?? fadePanel.AddComponent<CanvasGroup>();
+            fadePanel.SetActive(true);
+            cg.alpha = 1f;
+            cg.blocksRaycasts = true;
+            cg.DOFade(0f, 1.5f).SetEase(Ease.OutQuad).OnComplete(() =>
+            {
+                cg.blocksRaycasts = false;
+                fadePanel.SetActive(false);
+            });
         }
-
-        fadePanel.SetActive(true);
-        cg.alpha = 1f;
-        cg.blocksRaycasts = true;
-
-        cg.DOFade(0f, 1.5f).SetEase(Ease.OutQuad).OnComplete(() =>
-        {
-            cg.blocksRaycasts = false;
-            fadePanel.SetActive(false);
-        });
     }
 
     public void PlayButtonClickSound()
     {
-        if (buttonClickSound != null)
-        {
-            audioSource.PlayOneShot(buttonClickSound);  
-        }
-        else
-        {
-            Debug.LogWarning("Không có âm thanh cho Button Click!");
-        }
+        if (buttonClickSound != null) audioSource.PlayOneShot(buttonClickSound);
     }
+
+    private void ShowWinButtons()
+    {
+        buttonNextLevel.gameObject.SetActive(true);
+        buttonRestartLevel.gameObject.SetActive(true);
+    }
+
+    public void OnGameWin()
+    {
+        ShowWinButtons();
+        UnlockNextLevel(); // ✅ Gọi đúng ở đây
+        StartCoroutine(ShowWinPanelDelayed());
+    }
+
+    private IEnumerator ShowWinPanelDelayed()
+    {
+        yield return new WaitForSeconds(0.7f);
+        winPanel.SetActive(true);
+    }
+
+    private void HideWinButtons()
+    {
+        buttonNextLevel.gameObject.SetActive(false);
+        buttonRestartLevel.gameObject.SetActive(false);
+    }
+
     public void ShowSelectLevelWithFade()
     {
         PlayButtonClickSound();
         canvasHome.SetActive(false);
         canvasHowToPlay.SetActive(false);
         canvasSelectLevel.SetActive(true);
+        backHomePanel.SetActive(false);
 
-
-        if (fadePanelSelect != null)
+        if (fadePanelSelect)
         {
-            CanvasGroup cg = fadePanelSelect.GetComponent<CanvasGroup>();
-            if (cg == null)
-                cg = fadePanelSelect.AddComponent<CanvasGroup>();
-
+            CanvasGroup cg = fadePanelSelect.GetComponent<CanvasGroup>() ?? fadePanelSelect.AddComponent<CanvasGroup>();
             fadePanelSelect.SetActive(true);
             cg.alpha = 1f;
             cg.blocksRaycasts = true;
-
             cg.DOFade(0f, 1.5f).SetEase(Ease.OutQuad).OnComplete(() =>
             {
                 cg.blocksRaycasts = false;
-                fadePanelSelect.SetActive(false); 
+                fadePanelSelect.SetActive(false);
             });
         }
-        else
-        {
-            Debug.LogWarning("Không tìm thấy FadePanelSelect!");
-        }
     }
 
-
-    public void Continue() 
-    {
-        canvasHome.SetActive(false);
-        canvasSelectLevel.SetActive(true);
-    }
+    public void Continue() => canvasSelectLevel.SetActive(true);
 
     public void ShowHowToPlay()
     {
@@ -137,17 +159,9 @@ public class UIManager : MonoBehaviour
         PlayButtonClickSound();
     }
 
-    public void BackToHomeFromHowToPlay()
-    {
-        ShowHome();
-        PlayButtonClickSound();
-    }
+    public void BackToHomeFromHowToPlay() => ShowHome();
 
-    public void BackToHomeFromSelectLevel()
-    {
-        ShowHome();
-        PlayButtonClickSound();
-    }
+    public void BackToHomeFromSelectLevel() => ShowHome();
 
     public void LoadLevel(int levelIndex)
     {
@@ -158,18 +172,20 @@ public class UIManager : MonoBehaviour
         {
             currentLevelIndex = levelIndex;
             currentLevel = Instantiate(levelPrefabs[levelIndex]);
+            FindFirstObjectByType<GameManager>()?.ResetGame();
 
             canvasHome.SetActive(false);
             canvasSelectLevel.SetActive(false);
             canvasHowToPlay.SetActive(false);
+            backHomePanel.SetActive(true);
+            winPanel.SetActive(false);
 
             SetupLevelUIButtons();
-
-            Debug.Log(" Đã load level " + levelIndex);
+            Debug.Log("Đã load level " + levelIndex);
         }
         else
         {
-            Debug.LogError(" Level index không hợp lệ!");
+            Debug.LogError("Level index không hợp lệ!");
         }
     }
 
@@ -195,15 +211,77 @@ public class UIManager : MonoBehaviour
 
     private void UnloadCurrentLevel()
     {
-        if (currentLevel != null)
+        DOTween.KillAll();
+        if (currentLevel != null) Destroy(currentLevel);
+        currentLevel = null;
+    }
+
+    public void NextLevel()
+    {
+        if (currentLevelIndex + 1 < levelPrefabs.Length)
         {
-            Destroy(currentLevel);
-            currentLevel = null;
+            currentLevelIndex++;
+            LoadLevel(currentLevelIndex);
+        }
+        else
+        {
+            Debug.Log("Đây là level cuối cùng!");
         }
     }
 
-    private void ResetGameState()
+    public void RestartLevel() => LoadLevel(currentLevelIndex);
+
+    private void UnlockNextLevel()
     {
+        int nextIndex = currentLevelIndex + 1;
+        if (nextIndex < levelPrefabs.Length)
+        {
+            PlayerPrefs.SetInt("Level" + nextIndex, 1);
+            PlayerPrefs.Save();
+            Debug.Log("Mở khóa level " + nextIndex);
+            LoadLevelUnlockStatus();
+        }
 
     }
+
+
+    private void LoadLevelUnlockStatus()
+    {
+        for (int i = 0; i < levelButtons.Length; i++)
+        {
+            bool unlocked = PlayerPrefs.GetInt("Level" + i, i == 0 ? 1 : 0) == 1;
+            levelButtons[i].interactable = unlocked;
+
+            if (levelButtonTexts != null && i < levelButtonTexts.Length)
+                levelButtonTexts[i].color = unlocked ? Color.blue : Color.red;
+        }
+    }
+
+    private void SetupLevelButtons()
+    {
+        for (int i = 0; i < levelButtons.Length; i++)
+        {
+            int levelIndex = i;
+
+            levelButtons[i].onClick.RemoveAllListeners();
+            levelButtons[i].onClick.AddListener(() => LoadLevel(levelIndex));
+        }
+    }
+
+
+    public void ResetPlayerPrefs()
+    {
+        PlayerPrefs.DeleteAll();
+
+        
+        PlayerPrefs.SetInt("Level0", 1);
+
+        PlayerPrefs.Save();
+
+        
+        LoadLevelUnlockStatus();
+
+        Debug.Log("PlayerPrefs đã được reset");
+    }
+
 }
