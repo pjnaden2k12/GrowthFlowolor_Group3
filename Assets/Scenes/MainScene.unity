@@ -8602,7 +8602,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5125d1d4408477647ac769e91f7be620, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerStats: {fileID: 0}
+  playerStats: {fileID: 11400000, guid: b16f39bc36fdacd4ca7244bc318d4e56, type: 2}
   skins:
   - skinName: Defaut
     price: 0
