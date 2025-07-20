@@ -58,9 +58,12 @@ public class GameManager : MonoBehaviour
         {
             gameWon = true;
             Debug.Log("Game Win!");
-            FindFirstObjectByType<LevelConditionsManager>()?.StopConditionsCheck();
+            var levelConditions = FindFirstObjectByType<LevelConditionsManager>();
+            levelConditions?.OnLevelWin();
             PlayWinSound();
             UIManager.Instance.OnGameWin();
+            UIQuestManager.Instance.UpdateQuestProgress(0);
+            
         }
     }
 

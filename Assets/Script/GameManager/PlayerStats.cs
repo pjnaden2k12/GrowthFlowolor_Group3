@@ -1,21 +1,35 @@
-using UnityEngine;
+﻿using UnityEngine;
 
-[CreateAssetMenu(fileName = "PlayerStats", menuName = "Game/Player Stats")]
+[CreateAssetMenu(fileName = "PlayerStats", menuName = "Stats/PlayerStats")]
 public class PlayerStats : ScriptableObject
 {
     public int level = 1;
     public int exp = 0;
+    public int expToNextLevel = 100;
     public int gold = 0;
+
+    private bool leveledUp = false;
 
     public void AddExp(int amount)
     {
         exp += amount;
-
-        while (exp >= 100)
+        leveledUp = false;
+        while (exp >= expToNextLevel)
         {
-            exp -= 100;
+            exp -= expToNextLevel;
             level++;
+            leveledUp = true;
         }
+    }
+
+    public bool HasLeveledUp()
+    {
+        if (leveledUp)
+        {
+            leveledUp = false; // reset cờ
+            return true;
+        }
+        return false;
     }
 
     public void AddGold(int amount)
@@ -25,6 +39,6 @@ public class PlayerStats : ScriptableObject
 
     public void SpendGold(int amount)
     {
-        gold = Mathf.Max(0, gold - amount);
+        gold -= amount;
     }
 }

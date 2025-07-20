@@ -3,11 +3,9 @@ using TMPro;
 
 public class LevelConditionsManager : MonoBehaviour
 {
-    [Header("Level Settings")]
     public float levelTimeInSeconds = 60f;
     public int maxMoves = 20;
 
-    // Gỡ bỏ các trường public cũ, thay bằng các trường private
     private TextMeshProUGUI timerText;
     private TextMeshProUGUI movesText;
     private GameObject losePanel;
@@ -15,6 +13,8 @@ public class LevelConditionsManager : MonoBehaviour
     private float currentTime;
     private int currentMoves;
     private bool isLevelActive = true;
+    private float levelStartTime;
+    private bool levelWon = false;
 
     void Awake()
     {
@@ -23,7 +23,6 @@ public class LevelConditionsManager : MonoBehaviour
 
     void Start()
     {
-        // LẤY THAM CHIẾU TỪ UIMANAGER KHI GAME CHẠY
         if (UIManager.Instance != null)
         {
             timerText = UIManager.Instance.timerText;
@@ -33,12 +32,13 @@ public class LevelConditionsManager : MonoBehaviour
         else
         {
             Debug.LogError("UIManager.Instance not found! Cannot get UI references.");
-            return; // Dừng lại nếu không tìm thấy UIManager
+            return;
         }
 
         currentTime = levelTimeInSeconds;
         currentMoves = maxMoves;
         isLevelActive = true;
+        levelStartTime = Time.time;
 
         if (losePanel != null)
         {
@@ -90,11 +90,25 @@ public class LevelConditionsManager : MonoBehaviour
         if (timerText != null) timerText.gameObject.SetActive(false);
         if (movesText != null) movesText.gameObject.SetActive(false);
 
-
         if (losePanel != null)
         {
             UIManager.Instance.AnimatePanelIn(losePanel);
         }
+    }
+
+    public void OnLevelWin()
+    {
+        if (levelWon) return;
+        levelWon = true;
+
+        float timeTaken = Time.time - levelStartTime;
+
+        if (timeTaken <= 10f)
+        {
+            UIQuestManager.Instance?.UpdateQuestProgress(2);
+        }
+
+        StopConditionsCheck();
     }
 
     public void StopConditionsCheck()

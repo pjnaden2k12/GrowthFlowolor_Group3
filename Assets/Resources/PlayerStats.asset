@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 391c1ab74b1fa7049aeb07fc7f61a3fb, type: 3}
   m_Name: PlayerStats
   m_EditorClassIdentifier: 
-  level: 1
-  exp: 30
-  gold: 8199
+  level: 0
+  exp: 0
+  expToNextLevel: 100
+  gold: 100

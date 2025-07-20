@@ -24,7 +24,6 @@ public class UIManager : MonoBehaviour
     public GameObject fadePanelSelect;
     public GameObject canvasIngame;
 
-
     [Header("Level Prefabs")]
     public GameObject[] levelPrefabs;
 
@@ -34,6 +33,7 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI timerText;
     public TextMeshProUGUI movesText;
     public GameObject losePanel;
+    public GameObject questPanel;
 
     [Header("Buttons")]
     public Button buttonNextLevel;
@@ -46,6 +46,7 @@ public class UIManager : MonoBehaviour
 
     private GameObject currentLevel;
     private int currentLevelIndex = 0;
+    private bool isLoadingLevel = false;
 
     void Awake()
     {
@@ -71,11 +72,13 @@ public class UIManager : MonoBehaviour
         if (shopPanel != null)
             shopPanel.SetActive(false);
     }
+
     public void ShowInGameHUD()
     {
         if (timerText != null) timerText.gameObject.SetActive(true);
         if (movesText != null) movesText.gameObject.SetActive(true);
     }
+
     public void AnimatePanelIn(GameObject panel)
     {
         if (panel == null) return;
@@ -89,6 +92,7 @@ public class UIManager : MonoBehaviour
         panel.transform.DOScale(1f, 0.6f).SetEase(Ease.OutBack);
         cg.DOFade(1f, 0.5f);
     }
+
     public void SetBGMVolume(float volume)
     {
         bgmVolume = Mathf.Clamp01(volume);
@@ -97,6 +101,7 @@ public class UIManager : MonoBehaviour
 
     public void ShowHome()
     {
+        questPanel.SetActive(false);
         canvasHome.SetActive(true);
         canvasSelectLevel.SetActive(false);
         canvasHowToPlay.SetActive(false);
@@ -128,6 +133,24 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    public void ShowQuestPanel()
+    {
+        PlayButtonClickSound();
+        if (questPanel != null)
+        {
+            AnimatePanelIn(questPanel);
+        }
+    }
+
+    public void HideQuestPanel()
+    {
+        PlayButtonClickSound();
+        if (questPanel != null)
+        {
+            questPanel.SetActive(false);
+        }
+    }
+
     public void PlayButtonClickSound()
     {
         if (buttonClickSound != null) audioSource.PlayOneShot(buttonClickSound);
@@ -146,11 +169,13 @@ public class UIManager : MonoBehaviour
         UnlockNextLevel();
         StartCoroutine(ShowWinPanelDelayed());
     }
+
     public void HideInGameHUD()
     {
         if (timerText != null) timerText.gameObject.SetActive(false);
         if (movesText != null) movesText.gameObject.SetActive(false);
     }
+
     private IEnumerator ShowWinPanelDelayed()
     {
         yield return new WaitForSeconds(0.7f);
@@ -201,6 +226,9 @@ public class UIManager : MonoBehaviour
 
     public void LoadLevel(int levelIndex)
     {
+        if (isLoadingLevel) return;
+        isLoadingLevel = true;
+
         PlayButtonClickSound();
         UnloadCurrentLevel();
 
@@ -221,11 +249,14 @@ public class UIManager : MonoBehaviour
             ShowInGameHUD();
             SetupLevelUIButtons();
             Debug.Log("Đã load level " + levelIndex);
+            UIQuestManager.Instance?.UpdateQuestProgress(1);
         }
         else
         {
             Debug.LogError("Level index không hợp lệ!");
         }
+
+        isLoadingLevel = false;
     }
 
     private void SetupLevelUIButtons()
@@ -252,7 +283,6 @@ public class UIManager : MonoBehaviour
             }
         }
     }
-
 
     private void UnloadCurrentLevel()
     {
@@ -302,12 +332,12 @@ public class UIManager : MonoBehaviour
 
     private void SetupLevelButtons()
     {
+        Debug.Log("SetupLevelButtons called");
         for (int i = 0; i < levelButtons.Length; i++)
         {
-            int levelIndex = i;
-
+            int capturedIndex = i;
             levelButtons[i].onClick.RemoveAllListeners();
-            levelButtons[i].onClick.AddListener(() => LoadLevel(levelIndex));
+            levelButtons[i].onClick.AddListener(() => LoadLevel(capturedIndex));
         }
     }
 
@@ -320,7 +350,6 @@ public class UIManager : MonoBehaviour
         Debug.Log("PlayerPrefs đã được reset");
     }
 
-    // ===== SHOP FUNCTIONS =====
     public void ShowShop()
     {
         PlayButtonClickSound();
