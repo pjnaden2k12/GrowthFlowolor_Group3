@@ -17,8 +17,8 @@ public class PlayerStatsManager : MonoBehaviour
 
     void Start()
     {
-        levelUpText.gameObject.SetActive(false);
-        expGainText.gameObject.SetActive(false);
+        levelUpText.gameObject.SetActive(true);
+        expGainText.gameObject.SetActive(true);
         notificationText.gameObject.SetActive(false);
 
         Debug.Log("Level: " + playerStats.level);
